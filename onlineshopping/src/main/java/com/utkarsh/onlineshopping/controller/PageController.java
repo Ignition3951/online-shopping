@@ -11,9 +11,25 @@ public class PageController {
 	
 	@RequestMapping(value= {"/","/home","/index"})
 	public ModelAndView index() {
-		System.out.println("inside method");
 		ModelAndView mv = new ModelAndView("page");
-		mv.addObject("greeting","This is the main page");
+		mv.addObject("title","Home");
+		mv.addObject("userClickHome",true);
+		return mv;
+	}
+	
+	@RequestMapping(value= "/about")
+	public ModelAndView about() {
+		ModelAndView mv = new ModelAndView("page");
+		mv.addObject("title","About");
+		mv.addObject("userClickAbout",true);
+		return mv;
+	}
+	
+	@RequestMapping(value= "/contact")
+	public ModelAndView contactUs() {
+		ModelAndView mv = new ModelAndView("page");
+		mv.addObject("title","Contact Us");
+		mv.addObject("userClickContactUs",true);
 		return mv;
 	}
 	
