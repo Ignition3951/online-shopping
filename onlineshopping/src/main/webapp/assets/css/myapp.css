@@ -6,13 +6,14 @@
 
 html{
 	height : 100% ;
+	
 }
 body {
   padding-top: 70px;
   height : 100%;
 }
 footer{
-	margin: 100px;
+	margin: 0;
 }
 /* Custom Styling css */
 .wrapper{
@@ -29,4 +30,17 @@ footer{
 	position: absolute;
 	bottom: 15px;
 	height: 60px;
+	
+}
+
+
+.dataTableImg{
+	width: 100px;
+	height: 100px;
+	
+}
+
+.singleProductImg{
+	width: 500px;
+	height: 500px;
 }

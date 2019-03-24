@@ -46,6 +46,25 @@
 		<!-- Navigation -->
 		<%@include file="./shared/navbar.jsp"%>
 
+		<div class="content">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="jumbotron">
+						<h1>${errorTitle}</h1>
+						<hr/>
+						
+						<blockquote>
+						${errorDescription}
+						</blockquote>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
 		<!-- Page Content -->
 		<div class="content">
 			<c:if test="${userClickHome == true }">
@@ -60,13 +79,14 @@
 			<c:if test="${userClickContactUs == true }">
 				<%@include file="contact.jsp"%>
 			</c:if>
-			
-			
+
+
 			<!-- Load if user clicks show all products -->
-			<c:if test="${userClickAllProducts == true or userClickCategoryProducts == true}">
+			<c:if
+				test="${userClickAllProducts == true or userClickCategoryProducts == true}">
 				<%@include file="listProducts.jsp"%>
 			</c:if>
-			
+
 			<!-- Load if user clicks Single Product -->
 			<c:if test="${userClickShowProduct == true }">
 				<%@include file="singleProduct.jsp"%>
@@ -79,16 +99,16 @@
 
 		<!-- JQuery -->
 		<script src="${js}/jquery.js"></script>
-		
+
 		<!-- Bootstrap core JavaScript -->
 		<script src="${js}/bootstrap.min.js"></script>
-		
+
 		<!-- JQuery DataTable Plugin -->
 		<script src="${js}/jquery.dataTables.js"></script>
 
 		<!-- JQuery DataTable Bootstrap Plugin -->
 		<script src="${js}/dataTables.bootstrap4.js"></script>
-		
+
 		<!-- Self Coded Java Script  -->
 		<script src="${js}/myapp.js"></script>
 

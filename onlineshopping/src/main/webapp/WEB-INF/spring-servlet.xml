@@ -12,7 +12,8 @@ xmlns:mvc="http://www.springframework.org/schema/mvc"
    
    ">
    
-   <context:component-scan base-package="com.utkarsh.onlineshopping.controller"></context:component-scan>
+   <context:component-scan base-package="com.utkarsh.onlineshopping"></context:component-scan>
+   <context:component-scan base-package="com.utkarsh.shoppingbackend"></context:component-scan>
    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
    <property name="prefix" value="/WEB-INF/views/"></property>
    <property name="suffix" value=".jsp"></property>
