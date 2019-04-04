@@ -71,6 +71,11 @@
 			<c:if test="${userClickShowProduct == true }">
 				<%@include file="singleProduct.jsp"%>
 			</c:if>
+			
+			<!-- Load if user clicks Manage Product -->
+			<c:if test="${userClickManageProducts == true }">
+				<%@include file="manageProducts.jsp"%>
+			</c:if>
 
 		</div>
 
@@ -80,6 +85,9 @@
 		<!-- JQuery -->
 		<script src="${js}/jquery.js"></script>
 		
+		<!-- JQuery Validator -->
+		<script src="${js}/jquery.validate.js"></script>
+		
 		<!-- Bootstrap core JavaScript -->
 		<script src="${js}/bootstrap.min.js"></script>
 		
@@ -88,6 +96,9 @@
 
 		<!-- JQuery DataTable Bootstrap Plugin -->
 		<script src="${js}/dataTables.bootstrap4.js"></script>
+		
+		<!-- Bootbox -->
+		<script src="${js}/bootbox.min.js"></script>
 		
 		<!-- Self Coded Java Script  -->
 		<script src="${js}/myapp.js"></script>
