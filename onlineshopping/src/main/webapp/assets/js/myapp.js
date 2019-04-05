@@ -28,6 +28,21 @@ $(function(){
 	}
 		
 //	Code For jquery dataTable
+	
+//	To tackle the csrf token problem
+	var token=$('meta[name="_csrf"]').attr('content');
+	var header=$('meta[name="_csrf_header"]').attr('content');
+	
+	if(token.length > 0 && header.length > 0){
+//		Set the token header for the ajax request
+		$(document).ajaxSend(function(e,xhr,options){
+			
+			xhr.setRequestHeader(header,token);
+		});
+		
+		
+	}
+	
 //	Create a variable set
 	
 
@@ -88,12 +103,20 @@ $(function(){
 				mRender: function(data,type,row) {
 					var str='';
 					str +='<a href="'+window.contextRoot+'/show/'+data+'/product" class="btn btn-primary">View</a> &#160;';
-					if(row.quantity<1){
-						str +='<a href="javascript:void(0)" class="btn btn-success disabled" >Add to cart</a>';
+					if(userRole=='ADMIN'){
+						str +='<a href="'+window.contextRoot+'/manage/'+data+'/products" class="btn btn-warning" >Edit</a>';
 					}
 					else{
-						str +='<a href="'+window.contextRoot+'/cart/add/'+data+'/product" class="btn btn-success" >Add to cart</a>';
-					}
+						if(row.quantity<1){
+							str +='<a href="javascript:void(0)" class="btn btn-success disabled" >Add to cart</a>';
+						}
+						else{
+							str +='<a href="'+window.contextRoot+'/cart/add/'+data+'/product" class="btn btn-success" >Add to cart</a>';		
+							}
+							
+						}
+					
+					
 					
 					/*str +='<a href="'+window.contextRoot+'/cart/add/'+data+'/product" class="btn btn-success" >Add to cart</a>';*/
 					return str;
@@ -104,6 +127,8 @@ $(function(){
 		]
 		});
 	}
+	
+//	Dismissing after 3 seconds
 	var $alert=$('.alert');
 	if($alert.length){
 		
@@ -273,7 +298,7 @@ $(function(){
 	
 	/*-------------------
 	*/
-	/*Validation Form
+	/*Validation Form for Category
 	*/
 	var $categoryForm= $('#categoryForm');
 	
@@ -316,4 +341,46 @@ $(function(){
 	
 	/*---------------------
 	*/
+	
+	/*Validation form for Login*/
+var $loginForm= $('#loginForm');
+	
+	if($loginForm.length){
+		
+		$loginForm.validate({
+			
+			rules:{
+				username:{
+					required: true,
+					email: true
+				},
+				password:{
+					required: true
+				},
+				messages:{
+					name:{
+						required: 'Please enter the username!',
+						email: 'Please enter the email address!'
+					},
+					password:{
+						required: 'Please enter the password!'
+					}
+					
+				},
+				errorElement:'em',
+				errorPlacement: function(error,element){
+//					Add the class of help-block
+					error.addClass('help-block');
+//					Add the error element after the input element
+					error.insertAfter(element);
+				}
+				
+				
+			}
+			
+		});
+		
+	}
+	
+	/*---------------*/
 });

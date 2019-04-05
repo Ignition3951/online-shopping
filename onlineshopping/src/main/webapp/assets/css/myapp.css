@@ -33,6 +33,10 @@ footer{
 	
 }
 
+#sticky-footer{
+	flex-shrink: none;
+}
+
 
 .dataTableImg{
 	width: 100px;

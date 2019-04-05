@@ -8,26 +8,47 @@
         http://www.springframework.org/schema/context
         https://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/security
-        https://www.springframework.org/schema/security/spring-security.xsd">
-<context:component-scan
+        https://www.springframework.org/schema/security/spring-security.xsd
+        ">
+
+
+	<context:component-scan
 		base-package="com.utkarsh.shoppingbackend"></context:component-scan>
+		
+	<beans:bean id="passwordEncoder" 
+	class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></beans:bean>	
+	
+	<http pattern="/resources/**" security="none"></http>
+
+
 	<http>
-	<!-- Instead of hasRole we can use hasAuthority and remove ROLE_ part to authorize -->
-		<intercept-url pattern="/**" access="hasAuthority('USER')" />
-		<form-login />
-		<logout />
+		<!-- Instead of hasRole we can use hasAuthority and remove ROLE_ part to 
+			authorize -->
+		<!-- Only Admin access -->
+		<intercept-url pattern="/manage/**" access="hasAuthority('ADMIN')"/>
+		<!-- Only User access (who is registered) -->
+		<intercept-url pattern="/cart/**" access="hasAuthority('USER')"/>
+		<!-- Rest of the world -->
+		<intercept-url pattern="/**" access="permitAll" />
+		<form-login login-page="/login" />
+		<access-denied-handler error-page="/access-denied"/>
+	
+		<!-- To disable the CSRF TOKEN BUT NOT RECOMMENDED -->
+		<!-- <csrf disabled="true"/> -->
 	</http>
-<!-- Password is prefixed with {noop} to indicate to DelegatingPasswordEncoder 
-that NoOpPasswordEncoder should be used. This is not safe for production, 
-but makes reading in samples easier. Normally passwords should be hashed 
-			using BCrypt -->
-				
+
+	<!-- Password is prefixed with {noop} to indicate to DelegatingPasswordEncoder 
+		that NoOpPasswordEncoder should be used. This is not safe for production, 
+		but makes reading in samples easier. Normally passwords should be hashed 
+		using BCrypt -->
+
 	<authentication-manager>
 		<authentication-provider>
+			<password-encoder ref="passwordEncoder" ></password-encoder>
 			<jdbc-user-service data-source-ref="dataSource"
-			users-by-username-query="select email,password,enabled from user_detail where email=?"
-			authorities-by-username-query="select email,role from user_detail where email=?" />
-				
+				users-by-username-query="select email,password,enabled from user_detail where email=?"
+				authorities-by-username-query="select email,role from user_detail where email=?" />
+
 		</authentication-provider>
 	</authentication-manager>
 
